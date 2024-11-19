@@ -112,8 +112,8 @@ downloadGraphql(id: string, format: string): Observable<Blob> {
       variables: { id, format },
     })
     .pipe(
-      map((result) => {
-        const { file, fileType } = result.data.downloadDocument;
+      map((result: any) => { // Asegúrate de que `result` tenga el tipo adecuado
+        const { file, fileType } = result.data.downloadDocument; // Acceso a data
         const binary = atob(file); // Decodifica base64 a binario
         const array = [];
         for (let i = 0; i < binary.length; i++) {
