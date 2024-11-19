@@ -1,0 +1,103 @@
+<div class="card">
+    <h2>Firma Digital</h2>
+  <!-- Formulario de datos -->
+  <div class="p-field form-group">
+    <label for="password"></label>
+    <p-password 
+      id="password" 
+      [toggleMask]="true" 
+      [(ngModel)]="formulario.PASSWORD" 
+      name="password"
+      [feedback]="false" 
+      placeholder="Introduce contraseña"
+      class="form-input">
+    </p-password>
+  </div>
+  
+  <div class="form-group">
+    <label for="givename"></label>
+    <input
+      id="usuario"
+      type="text"
+      placeholder="Nombre"
+      [(ngModel)]="formulario.GIVENAME"
+      [ngClass]="{'input-error': formulario.GIVENAME.trim() === ''}"
+      class="form-input"
+    />
+  </div>
+  
+  <div class="form-group">
+    <label for="Surname"></label>
+    <input
+      id="apelido"
+      type="text"
+      placeholder="Usuario"
+      [(ngModel)]="formulario.SURNAME"
+      [ngClass]="{'input-error': formulario.SURNAME.trim() === ''}"
+      class="form-input"
+    />
+  </div>
+  
+  <div class="form-group">
+    <label for="DNI"></label>
+    <input
+      id="dni"
+      type="text"
+      placeholder="DNI"
+      [(ngModel)]="formulario.DNI"
+      [ngClass]="{'input-error': formulario.DNI.trim() === ''}"
+      class="form-input"
+    />
+  </div>
+  
+    <div class="card">
+      <p-fileUpload class = "custom-file-upload"
+      name="demo[]" 
+      (onUpload)="onFileSelect($event)" 
+      (onBeforeUpload)="onBeforeUpload()"
+      [multiple]="true" 
+      [styleClass]="'custom-file-upload'"
+      accept="" 
+      maxFileSize="1000000"
+      [disabled]="!isFormularioValido()"
+      [styleClass]="'custom-file-upload'">
+  
+          <ng-template pTemplate="content">
+              <ul *ngIf="uploadedFiles.length">
+                  <li *ngFor="let file of uploadedFiles">
+                      {{ file.name }} - {{ file.size }} bytes
+                  </li>
+              </ul>
+          </ng-template>
+  </p-fileUpload>
+  </div>
+
+  <p-card header="Documentos Firmados" class="p-mb-4">
+    <p-table [value]="documentos" responsiveLayout="scroll">
+      <ng-template pTemplate="header">
+        <tr>
+          <th>Nombre del Documento</th>
+          <th>Acciones</th>
+        </tr>
+      </ng-template>
+      <ng-template pTemplate="body" let-documento>
+        <tr>
+          <td>{{ documento.name }}</td>
+          <td>
+            <p-button 
+              label=""
+              icon="pi pi-download" 
+              [text]="true" 
+              [raised]="true" 
+              [outlined]="true"
+              severity="info"
+              class="p-button-info"
+              (click)="downloadFile('pdf',documento.id)">
+            </p-button>
+          </td>
+        </tr>
+       
+      </ng-template>
+    </p-table>
+  </p-card>
+  

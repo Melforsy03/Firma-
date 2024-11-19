@@ -1,0 +1,117 @@
+<p-card header="Gestión de Aplicaciones">
+
+  <div class="button-container">
+    <!-- Botón que despliega las opciones de filtrado -->
+  <div class="p-mb-3">
+    <p-button 
+      label="Filtrar" 
+      icon="pi pi-filter" 
+      (click)="filterPanel.toggle($event)">
+    </p-button>
+
+    <p-overlayPanel #filterPanel>
+      <div class="p-fluid">
+        <div class="p-field">
+          <p-radioButton 
+            name="filter" 
+            label="Opción 1" 
+            [value]="1" 
+            [(ngModel)]="selectedFilter">
+          </p-radioButton>
+        </div>
+        <div class="p-field">
+          <p-radioButton 
+            name="filter" 
+            label="Opción 2" 
+            [value]="2" 
+            [(ngModel)]="selectedFilter">
+          </p-radioButton>
+        </div>
+      </div>
+    </p-overlayPanel>
+  </div>
+ <!-- Botón para añadir aplicación -->
+ <p-button 
+ label="Añadir Nueva Aplicación"
+ [text]="true"
+ [raised]="true"
+ icon="pi pi-plus"
+ class="p-mt-3"
+ (click)="onAddApplication()">
+</p-button>
+</div>
+<p-card header="Aplicaciones">
+  <!-- Tabla para listar aplicaciones -->
+  <p-table [value]="aplicaciones" [(selection)]="selectedApplication" dataKey="id" responsiveLayout="scroll">
+    <ng-template pTemplate="header">
+      <tr>
+        <th>Nombre</th>
+        <th>Descripción</th>
+        <th>Acciones</th>
+      </tr>
+    </ng-template>
+    <ng-template pTemplate="body" let-aplicacion>
+      <tr>
+        <td>{{ aplicacion.name }}</td>
+        <td>{{ aplicacion.description }}</td>
+        <td>
+          <p-button 
+            label="Modificar"
+            [text]="true"
+            [raised]="true"
+            icon="pi pi-pencil"
+            styleClass="p-button-text"
+            (click)="onModifyApplication(aplicacion)">
+          </p-button>
+          <p-button 
+            label="Eliminar"
+            icon="pi pi-trash"
+            styleClass="p-button-danger p-button-text"
+            (click)="confirmDeleteApplication(aplicacion)">
+          </p-button>
+        </td>
+      </tr>
+    </ng-template>
+  </p-table>
+
+  <!-- Formulario para añadir o modificar aplicaciones -->
+  <p-dialog [(visible)]="displayDialog" [header]="dialogHeader" [closable]="true">
+    <div class="p-fluid">
+      <div class="p-field">
+        <label for="name"></label>
+        <input 
+          id="name" 
+          type="text" 
+          pInputText 
+          [(ngModel)]="selectedApplication.name" 
+          placeholder="Nombre" />
+      </div>
+      <div class="p-field">
+        <label for="description"></label>
+        <input 
+          id="description" 
+          type="text" 
+          pInputText 
+          [(ngModel)]="selectedApplication.description" 
+          placeholder="Descripción" />
+      </div>
+    </div>
+    <p-footer>
+      <p-button 
+        label="{{ selectedApplication.id ? 'Guardar Cambios' : 'Añadir' }}"
+        icon="pi pi-save"
+        (click)="saveApplication()">
+      </p-button>
+      <p-button 
+        label="Cancelar"
+        icon="pi pi-times"
+        styleClass="p-button-text"
+        (click)="closeDialog()">
+      </p-button>
+    </p-footer>
+  </p-dialog>
+ 
+</p-card>
+
+<!-- Confirmación para eliminar aplicación -->
+<p-confirmDialog></p-confirmDialog>

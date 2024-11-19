@@ -1,0 +1,54 @@
+{
+  "aplicaciones": [
+    {
+      "id": 1,
+      "name": "Gestor de Tareas",
+      "description": "Aplicación para gestionar tareas diarias y proyectos."
+    },
+    {
+      "id": 2,
+      "name": "Calendario de Eventos",
+      "description": "Aplicación para programar y gestionar eventos importantes."
+    },
+    {
+      "id": 3,
+      "name": "Control de Gastos",
+      "description": "Aplicación para llevar un control de gastos personales y presupuestos."
+    },
+    {
+      "id": 4,
+      "name": "Red Social",
+      "description": "Plataforma para conectar con amigos y compartir contenido."
+    },
+    {
+      "id": 5,
+      "name": "Gestión de Inventario",
+      "description": "Aplicación para gestionar el inventario de productos en una tienda."
+    },
+    {
+      "id": 6,
+      "name": "Sistema de Reservas",
+      "description": "Aplicación para realizar reservas en restaurantes o eventos."
+    },
+    {
+      "id": 7,
+      "name": "Entrenador Personal",
+      "description": "Aplicación para crear y seguir rutinas de entrenamiento físico."
+    },
+    {
+      "id": 8,
+      "name": "Recetario Digital",
+      "description": "Aplicación para almacenar y compartir recetas de cocina."
+    },
+    {
+      "id": 9,
+      "name": "Seguimiento de Proyectos",
+      "description": "Herramienta para gestionar el progreso de proyectos en equipo."
+    },
+    {
+      "id": 10,
+      "name": "Aplicación de Clima",
+      "description": "Aplicación para consultar el clima y pronósticos del tiempo."
+    }
+  ]
+}
