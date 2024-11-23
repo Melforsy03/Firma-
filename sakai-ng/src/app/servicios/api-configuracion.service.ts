@@ -4,8 +4,8 @@ import { Injectable } from '@angular/core';
   providedIn: 'root'
 })
 export class ApiConfiguracionService {
-  private useGraphQL: boolean = false; // Por defecto, usar REST (false)
-  private ApiUrl = 'http://localhost:3000/api'; 
+  private useGraphQL: boolean = true; // Por defecto, usar REST (false)
+  private ApiUrl = 'http://172.18.213.33:3000'; 
   constructor() {}
 
   // Obtener el tipo de API que se está usando (true para GraphQL, false para REST)

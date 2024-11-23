@@ -87,13 +87,31 @@
           placeholder="Nombre" />
       </div>
       <div class="p-field">
-        <label for="description"></label>
+        <label for="Compañia"></label>
         <input 
-          id="description" 
+          id="Compañia" 
+          type="text" 
+          pInputText 
+          [(ngModel)]="selectedApplication.compagnia" 
+          placeholder="Compañia" />
+      </div>
+      <div class="p-field">
+        <label for="Contraseña "></label>
+        <input 
+          id="Contraseña" 
+          type="text" 
+          pInputText 
+          [(ngModel)]="selectedApplication.contrasegna" 
+          placeholder="Contraseña" />
+      </div>
+      <div class="p-field">
+        <label for="Descripcion"></label>
+        <input 
+          id="Descripcion" 
           type="text" 
           pInputText 
           [(ngModel)]="selectedApplication.description" 
-          placeholder="Descripción" />
+          placeholder="Descripcion" />
       </div>
     </div>
     <p-footer>

@@ -15,22 +15,15 @@ import { ApiComponent } from './layout/api/api.component';
 import { AplicacioneComponent } from './layout/aplicacione/aplicacione.component';
 import { ApolloClient, InMemoryCache, createHttpLink } from '@apollo/client/core';
 import { Apollo } from 'apollo-angular';
+import { HttpClientModule } from '@angular/common/http';
+import { GraphQLModule } from './graphql.module';
 @NgModule({
     declarations: [AppComponent, NotfoundComponent ],
-    imports: [AppRoutingModule, AppLayoutModule , ApiComponent , AplicacioneComponent],
+    imports: [AppRoutingModule, AppLayoutModule , ApiComponent , AplicacioneComponent, HttpClientModule, GraphQLModule],
     providers: [
         { provide: LocationStrategy, useClass: PathLocationStrategy },
         CountryService, CustomerService, EventService, IconService, NodeService,
-        PhotoService, ProductService,
-        {
-            provide: Apollo,
-            useFactory: () => {
-              return new ApolloClient({
-                link: createHttpLink({ uri: 'http://tu-endpoint-graphql.com/graphql' }), // Reemplaza con URI
-                cache: new InMemoryCache(),
-              });
-            },
-          },
+        PhotoService, ProductService
     ],
     bootstrap: [AppComponent],
 })

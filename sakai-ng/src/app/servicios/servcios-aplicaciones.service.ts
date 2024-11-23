@@ -1,86 +1,76 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
+import { ApiConfiguracionService } from './api-configuracion.service';
+import { Apollo } from 'apollo-angular';
+import gql from 'graphql-tag';
+
 @Injectable({
   providedIn: 'root'
 })
 export class AplicacionesService {
-  private restApiUrl = 'http://localhost:3000/aplicaciones'; // URL de la API REST
-  private graphqlApiUrl = 'https://api.example.com/graphql'; // URL de la API GraphQL
 
-  constructor(private http: HttpClient) {}
-
-  // Obtener todas las aplicaciones (REST)
-  getAplicacionesRest(): Observable<any[]> {
-    return this.http.get<any[]>(this.restApiUrl);
-  }
+  constructor(private http: HttpClient, private configService: ApiConfiguracionService, private apollo: Apollo) {}
 
   // Obtener todas las aplicaciones (GraphQL)
   getAplicacionesGraphQL(): Observable<any> {
-    const query = `
+    const query = gql`
       query {
-        aplicaciones {
+        getAllApps {
           id
           name
           description
         }
       }
     `;
-    return this.http.post(this.graphqlApiUrl, { query });
-  }
-
-  // Añadir nueva aplicación (REST)
-  addAplicacionRest(aplicacion: any): Observable<any> {
-    return this.http.post(this.restApiUrl, aplicacion);
+    return this.apollo.query({ query });
   }
 
   // Añadir nueva aplicación (GraphQL)
   addAplicacionGraphQL(aplicacion: any): Observable<any> {
-    const mutation = `
-      mutation {
-        addAplicacion(input: { name: "${aplicacion.name}", description: "${aplicacion.description}" }) {
+    const mutation = gql`
+      mutation createApp($newApp: ApplicationInput!) {
+        createApp(newApp: $newApp) {
           id
           name
           description
         }
       }
     `;
-    return this.http.post(this.graphqlApiUrl, { query: mutation });
-  }
-
-  // Modificar aplicación (REST)
-  updateAplicacionRest(aplicacion: any): Observable<any> {
-    return this.http.put(`${this.restApiUrl}/${aplicacion.id}`, aplicacion);
+    return this.apollo.mutate({
+      mutation,
+      variables: { newApp: aplicacion },
+    });
   }
 
   // Modificar aplicación (GraphQL)
   updateAplicacionGraphQL(aplicacion: any): Observable<any> {
-    const mutation = `
-      mutation {
-        updateAplicacion(id: ${aplicacion.id}, input: { name: "${aplicacion.name}", description: "${aplicacion.description}" }) {
+    const mutation = gql`
+      mutation updateApp($idApp: ID!, $newProps: ApplicationInput!) {
+        updateApp(idApp: $idApp, newProps: $newProps) {
           id
           name
           description
         }
       }
     `;
-    return this.http.post(this.graphqlApiUrl, { query: mutation });
-  }
-
-  // Eliminar aplicación (REST)
-  deleteAplicacionRest(id: number): Observable<any> {
-    return this.http.delete(`${this.restApiUrl}/${id}`);
+    return this.apollo.mutate({
+      mutation,
+      variables: { idApp: aplicacion.id, newProps: aplicacion },
+    });
   }
 
   // Eliminar aplicación (GraphQL)
-  deleteAplicacionGraphQL(id: number): Observable<any> {
-    const mutation = `
-      mutation {
-        deleteAplicacion(id: ${id}) {
-          id
-        }
+  deleteAplicacionGraphQL(id: string): Observable<any> {
+    const mutation = gql`
+      mutation deleteApp($id: ID!) {
+        deleteApp(id: $id)
       }
     `;
-    return this.http.post(this.graphqlApiUrl, { query: mutation });
+    return this.apollo.mutate({
+      mutation,
+      variables: { id },
+    });
   }
 }
+
